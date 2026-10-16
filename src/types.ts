@@ -55,6 +55,18 @@ export interface PokemonArchetype {
   };
 }
 
+export interface PokemonCharacteristic {
+  id: number;
+  gene_modulo: number;
+  possible_values: number[];
+  highest_stat: string;
+  description: string;
+  description_zh?: string;
+  description_ja?: string;
+  source: string;
+  isLive: boolean;
+}
+
 export interface LivePokemonData {
   id: number;
   name: string;
@@ -65,6 +77,7 @@ export interface LivePokemonData {
   cryUrl?: string;
   genus?: string;
   flavorText?: string;
+  characteristic?: PokemonCharacteristic;
   stats: {
     hp: number;
     attack: number;

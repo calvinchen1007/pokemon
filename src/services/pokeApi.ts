@@ -1,4 +1,4 @@
-import { LivePokemonData } from '../types';
+import { LivePokemonData, PokemonCharacteristic } from '../types';
 
 const POKEAPI_BASE_URL = 'https://pokeapi.co/api/v2';
 const cache = new Map<string, LivePokemonData>();
@@ -127,6 +127,29 @@ export async function fetchLivePokemonData(
       }
     }
 
+    // Determine highest stat to query corresponding characteristic from serverless api.js
+    const statEntries: [string, number][] = [
+      ['hp', statsObj.hp],
+      ['attack', statsObj.attack],
+      ['defense', statsObj.defense],
+      ['special-attack', statsObj.specialAttack],
+      ['special-defense', statsObj.specialDefense],
+      ['speed', statsObj.speed],
+    ];
+    statEntries.sort((a, b) => b[1] - a[1]);
+    const highestStatName = statEntries[0][0];
+
+    // Fetch authentic characteristic trait via serverless function (api.js -> https://pokeapi.co/api/v2/characteristic/)
+    let characteristic: PokemonCharacteristic | undefined = undefined;
+    try {
+      const charResult = await fetchCharacteristicFromApi({ stat: highestStatName });
+      if (charResult) {
+        characteristic = charResult;
+      }
+    } catch {
+      // Non-fatal fallback
+    }
+
     const officialArtwork =
       pokemonJson.sprites?.other?.['official-artwork']?.front_default ||
       pokemonJson.sprites?.other?.home?.front_default ||
@@ -145,6 +168,7 @@ export async function fetchLivePokemonData(
       cryUrl: pokemonJson.cries?.latest,
       genus: genus || undefined,
       flavorText: flavorText || undefined,
+      characteristic,
       stats: statsObj,
     };
 
@@ -187,5 +211,54 @@ export function playPokemonCry(audioUrl?: string): void {
     });
   } catch {
     // Ignore audio initialization errors
+  }
+}
+
+/**
+ * Fetch characteristic trait from local serverless function (api.js)
+ * Source: https://pokeapi.co/api/v2/characteristic/ (No key required)
+ */
+export async function fetchCharacteristicFromApi(options?: {
+  id?: number;
+  stat?: string;
+}): Promise<PokemonCharacteristic | null> {
+  try {
+    let endpoint = '/api/characteristic';
+    if (options?.id) {
+      endpoint = `/api/characteristic?id=${options.id}`;
+    } else if (options?.stat) {
+      endpoint = `/api/characteristic?stat=${encodeURIComponent(options.stat)}`;
+    }
+
+    const res = await fetch(endpoint);
+    if (!res.ok) return null;
+
+    const data = await res.json();
+    if (data.characteristic) {
+      return data.characteristic;
+    }
+    if (Array.isArray(data.characteristics) && data.characteristics.length > 0) {
+      // Return a random one from the stat's matching characteristics or the first
+      const randomIndex = Math.floor(Math.random() * data.characteristics.length);
+      return data.characteristics[randomIndex];
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Fetch all 30 characteristics from serverless function (api.js)
+ * Source: https://pokeapi.co/api/v2/characteristic/
+ */
+export async function fetchAllCharacteristicsFromApi(): Promise<PokemonCharacteristic[]> {
+  try {
+    const res = await fetch('/api/characteristic?all=true');
+    if (!res.ok) return [];
+    const data = await res.json();
+    return Array.isArray(data.characteristics) ? data.characteristics : [];
+  } catch {
+    return [];
   }
 }

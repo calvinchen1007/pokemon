@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Sparkles, Layers, ShieldCheck, HeartHandshake } from 'lucide-react';
+import { ArrowRight, Sparkles, Layers, ShieldCheck, Server } from 'lucide-react';
 import { POKEMON_ARCHETYPES } from '../data/archetypes';
 
 interface HomeScreenProps {
@@ -59,18 +59,22 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             </p>
 
             {/* Feature Points - Clean typography with no pill enclosures */}
-            <div className="pt-2 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-zinc-400">
+            <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-zinc-400">
               <div className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
-                <span>10 Curated Archetypes</span>
+                <span>10 Curated Personality Archetypes</span>
               </div>
               <div className="flex items-center gap-2">
                 <Layers className="w-4 h-4 text-amber-400 shrink-0" />
-                <span>Live PokéAPI Telemetry</span>
+                <span>Live PokéAPI Telemetry (No Key Required)</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Server className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>Serverless Characteristic API (/api.js)</span>
               </div>
               <div className="flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-amber-400 shrink-0" />
-                <span>Instant Card Export</span>
+                <span>Official Pokédex Lore & Audio Cries</span>
               </div>
             </div>
 

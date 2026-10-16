@@ -9,12 +9,15 @@ import {
   Flame,
   ShieldAlert,
   AlertTriangle,
+  Server,
+  ExternalLink,
 } from 'lucide-react';
 import {
   PokemonArchetype,
   LivePokemonData,
   ApiFetchState,
   PersonalityScoreResult,
+  PokemonCharacteristic,
 } from '../types';
 import { playPokemonCry } from '../services/pokeApi';
 
@@ -25,6 +28,7 @@ interface ResultCardProps {
   onRetryApi: () => void;
   cardRef: React.RefObject<HTMLDivElement | null>;
   onSelectPokemonById?: (id: string) => void;
+  onOpenCharacteristicsModal?: () => void;
 }
 
 export const ResultCard: React.FC<ResultCardProps> = ({
@@ -34,6 +38,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({
   onRetryApi,
   cardRef,
   onSelectPokemonById,
+  onOpenCharacteristicsModal,
 }) => {
   const { archetype, matchPercentage, traitBreakdown } = scoreResult;
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
@@ -239,6 +244,69 @@ export const ResultCard: React.FC<ResultCardProps> = ({
             </div>
           )}
         </div>
+      </div>
+
+      {/* AUTHENTIC POKÉAPI CHARACTERISTIC TRAIT (Served via serverless function api.js -> https://pokeapi.co/api/v2/characteristic/) */}
+      <div className="relative z-10 my-3.5 p-3.5 rounded-2xl bg-[#0e121a]/90 border border-white/10 text-xs">
+        <div className="flex items-center justify-between pb-2 mb-2 border-b border-white/10">
+          <div className="flex items-center gap-1.5 font-mono-code text-[10px] text-zinc-400 uppercase tracking-wider">
+            <Server className="w-3.5 h-3.5 text-emerald-400" />
+            <span>PokéAPI Official Characteristic</span>
+          </div>
+          <div className="flex items-center gap-1.5 font-mono-code text-[10px]">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+            <span className="text-emerald-300">api.js</span>
+            {onOpenCharacteristicsModal && (
+              <button
+                type="button"
+                onClick={onOpenCharacteristicsModal}
+                className="text-amber-400 hover:underline cursor-pointer ml-1.5"
+              >
+                Explore All (30) →
+              </button>
+            )}
+          </div>
+        </div>
+
+        {liveData?.characteristic ? (
+          <div className="space-y-1.5">
+            <div className="flex items-baseline justify-between gap-2">
+              <div className="flex items-baseline gap-2 flex-wrap">
+                <span className="font-display font-bold text-base sm:text-lg text-white">
+                  “{liveData.characteristic.description}”
+                </span>
+                {liveData.characteristic.description_zh && (
+                  <span className="text-amber-300 text-xs font-medium">
+                    ({liveData.characteristic.description_zh})
+                  </span>
+                )}
+              </div>
+              <span className="font-mono-code text-[10px] px-2 py-0.5 rounded bg-white/5 border border-white/10 text-zinc-300 shrink-0 uppercase">
+                {liveData.characteristic.highest_stat.replace('special-', 'Sp. ')}
+              </span>
+            </div>
+            <p className="text-[11px] text-zinc-400 leading-normal">
+              Official characteristic calculated for highest stat{' '}
+              <span className="text-zinc-200 capitalize font-mono-code">
+                {liveData.characteristic.highest_stat}
+              </span>{' '}
+              (gene modulo {liveData.characteristic.gene_modulo}).
+            </p>
+          </div>
+        ) : (
+          <div className="flex items-center justify-between text-zinc-400 text-xs py-1">
+            <span>Querying characteristic via /api.js serverless function...</span>
+            {onOpenCharacteristicsModal && (
+              <button
+                type="button"
+                onClick={onOpenCharacteristicsModal}
+                className="text-amber-400 hover:underline font-mono-code text-[10px] cursor-pointer"
+              >
+                Browse All
+              </button>
+            )}
+          </div>
+        )}
       </div>
 
       {/* PERSONALITY DESCRIPTION PARAGRAPH */}

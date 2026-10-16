@@ -7,6 +7,7 @@ import { CalculatingScreen } from './components/CalculatingScreen';
 import { ResultScreen } from './components/ResultScreen';
 import { RosterGalleryModal } from './components/RosterGalleryModal';
 import { AboutModal } from './components/AboutModal';
+import { CharacteristicsModal } from './components/CharacteristicsModal';
 import { QUIZ_QUESTIONS } from './data/quizData';
 import { POKEMON_ARCHETYPES } from './data/archetypes';
 import {
@@ -42,6 +43,7 @@ export default function App() {
   // Modal states
   const [isArchetypesModalOpen, setIsArchetypesModalOpen] = useState(false);
   const [isAboutModalOpen, setIsAboutModalOpen] = useState(false);
+  const [isCharacteristicsModalOpen, setIsCharacteristicsModalOpen] = useState(false);
 
   // Check URL query parameters on initial mount (e.g. ?pokemon=gengar)
   useEffect(() => {
@@ -185,6 +187,7 @@ export default function App() {
         onGoHome={() => setCurrentStep('home')}
         onOpenArchetypes={() => setIsArchetypesModalOpen(true)}
         onOpenAbout={() => setIsAboutModalOpen(true)}
+        onOpenCharacteristics={() => setIsCharacteristicsModalOpen(true)}
       />
 
       {/* Main View Router */}
@@ -217,6 +220,7 @@ export default function App() {
             onRetryApi={() => loadPokeApiData(scoreResult.archetype.pokeApiName)}
             onRetakeQuiz={handleStartQuiz}
             onOpenArchetypes={() => setIsArchetypesModalOpen(true)}
+            onOpenCharacteristicsModal={() => setIsCharacteristicsModalOpen(true)}
             onSelectPokemonById={(id) => {
               const target = getArchetypeById(id);
               handleSelectArchetypeFromModal(target);
@@ -236,6 +240,21 @@ export default function App() {
       <AboutModal
         isOpen={isAboutModalOpen}
         onClose={() => setIsAboutModalOpen(false)}
+      />
+
+      {/* PokéAPI Characteristics Serverless API Modal */}
+      <CharacteristicsModal
+        isOpen={isCharacteristicsModalOpen}
+        onClose={() => setIsCharacteristicsModalOpen(false)}
+        initialStat={liveData?.characteristic?.highest_stat}
+        onSelectCharacteristic={(customChar) => {
+          if (liveData) {
+            setLiveData({
+              ...liveData,
+              characteristic: customChar,
+            });
+          }
+        }}
       />
 
       {/* Institutional Footer */}

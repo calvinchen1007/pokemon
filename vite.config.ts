@@ -1,14 +1,47 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import {defineConfig} from 'vite';
+import { defineConfig, Plugin } from 'vite';
+
+const serverlessApiPlugin: Plugin = {
+  name: 'serverless-api-handler',
+  configureServer(server) {
+    server.middlewares.use(async (req, res, next) => {
+      const url = req.url || '';
+      if (
+        url.startsWith('/api.js') ||
+        url.startsWith('/api/') ||
+        url === '/api' ||
+        url.startsWith('/api?')
+      ) {
+        try {
+          const apiModule = await server.ssrLoadModule('/api.js');
+          return await apiModule.default(req, res);
+        } catch (err) {
+          console.error('Error invoking api.js serverless function:', err);
+          res.statusCode = 500;
+          res.setHeader('Content-Type', 'application/json');
+          res.end(
+            JSON.stringify({
+              status: 'error',
+              error: 'Serverless function error',
+              message: String(err),
+            })
+          );
+          return;
+        }
+      }
+      next();
+    });
+  },
+};
 
 export default defineConfig(() => {
   return {
-    plugins: [react(), tailwindcss()],
+    plugins: [react(), tailwindcss(), serverlessApiPlugin],
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, '.'),
+        '@': path.resolve(import.meta.dirname, '.'),
       },
     },
     server: {

@@ -6,6 +6,7 @@ interface HeaderProps {
   onGoHome: () => void;
   onOpenArchetypes: () => void;
   onOpenAbout: () => void;
+  onOpenCharacteristics?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -14,6 +15,7 @@ export const Header: React.FC<HeaderProps> = ({
   onGoHome,
   onOpenArchetypes,
   onOpenAbout,
+  onOpenCharacteristics,
 }) => {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-white/10 bg-[#0c0e12]/85 backdrop-blur-md">
@@ -33,7 +35,7 @@ export const Header: React.FC<HeaderProps> = ({
         </button>
 
         {/* Zone 2: Nav links, 1-2 word labels, single-line */}
-        <nav className="flex items-center gap-5 sm:gap-7 text-xs sm:text-sm font-medium text-zinc-400">
+        <nav className="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm font-medium text-zinc-400">
           <button
             onClick={onGoHome}
             className={`whitespace-nowrap shrink-0 transition-colors cursor-pointer ${
@@ -58,9 +60,19 @@ export const Header: React.FC<HeaderProps> = ({
           >
             Archetypes
           </button>
+          {onOpenCharacteristics && (
+            <button
+              onClick={onOpenCharacteristics}
+              className="whitespace-nowrap shrink-0 transition-colors hover:text-white cursor-pointer flex items-center gap-1.5 text-emerald-400/90"
+              title="PokéAPI Characteristics via api.js serverless function"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Characteristics</span>
+            </button>
+          )}
           <button
             onClick={onOpenAbout}
-            className="whitespace-nowrap shrink-0 transition-colors hover:text-white cursor-pointer hidden xs:inline-block"
+            className="whitespace-nowrap shrink-0 transition-colors hover:text-white cursor-pointer hidden sm:inline-block"
           >
             About
           </button>

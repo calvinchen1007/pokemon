@@ -26,6 +26,7 @@ interface ResultScreenProps {
   onRetakeQuiz: () => void;
   onOpenArchetypes: () => void;
   onSelectPokemonById: (id: string) => void;
+  onOpenCharacteristicsModal?: () => void;
 }
 
 export const ResultScreen: React.FC<ResultScreenProps> = ({
@@ -36,6 +37,7 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({
   onRetakeQuiz,
   onOpenArchetypes,
   onSelectPokemonById,
+  onOpenCharacteristicsModal,
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isDownloading, setIsDownloading] = useState(false);
@@ -159,6 +161,7 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({
           onRetryApi={onRetryApi}
           cardRef={cardRef}
           onSelectPokemonById={onSelectPokemonById}
+          onOpenCharacteristicsModal={onOpenCharacteristicsModal}
         />
       </div>
 
