@@ -5,11 +5,13 @@ import { POKEMON_ARCHETYPES } from '../data/archetypes';
 interface HomeScreenProps {
   onStartQuiz: () => void;
   onExploreArchetypes: () => void;
+  onGoTalkToUs?: () => void;
 }
 
 export const HomeScreen: React.FC<HomeScreenProps> = ({
   onStartQuiz,
   onExploreArchetypes,
+  onGoTalkToUs,
 }) => {
   // Select 4 showcase Pokémon for the collage
   const showcase = [
@@ -141,10 +143,18 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                   onClick={onExploreArchetypes}
                   className="text-amber-400 hover:text-amber-300 font-medium transition-colors cursor-pointer flex items-center gap-1"
                 >
-                  <span>Explore all 10 archetypes</span>
+                  <span>Explore 10 archetypes</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
-                <span className="font-mono-code text-zinc-400">~60s QUIZ</span>
+                {onGoTalkToUs && (
+                  <button
+                    onClick={onGoTalkToUs}
+                    className="text-zinc-300 hover:text-white font-medium transition-colors cursor-pointer"
+                  >
+                    Talk to Us →
+                  </button>
+                )}
+                <span className="font-mono-code text-zinc-400 hidden xs:inline">~60s QUIZ</span>
               </div>
             </div>
           </div>

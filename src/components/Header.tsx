@@ -1,10 +1,11 @@
 import React from 'react';
 
 interface HeaderProps {
-  currentStep: 'home' | 'quiz' | 'calculating' | 'result';
+  currentStep: 'home' | 'quiz' | 'calculating' | 'result' | 'talk-to-us';
   onStartQuiz: () => void;
   onGoHome: () => void;
   onOpenArchetypes: () => void;
+  onGoTalkToUs: () => void;
   onOpenAbout: () => void;
 }
 
@@ -13,6 +14,7 @@ export const Header: React.FC<HeaderProps> = ({
   onStartQuiz,
   onGoHome,
   onOpenArchetypes,
+  onGoTalkToUs,
   onOpenAbout,
 }) => {
   return (
@@ -33,7 +35,7 @@ export const Header: React.FC<HeaderProps> = ({
         </button>
 
         {/* Zone 2: Nav links, 1-2 word labels, single-line */}
-        <nav className="flex items-center gap-5 sm:gap-7 text-xs sm:text-sm font-medium text-zinc-400">
+        <nav className="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm font-medium text-zinc-400">
           <button
             onClick={onGoHome}
             className={`whitespace-nowrap shrink-0 transition-colors cursor-pointer ${
@@ -57,6 +59,14 @@ export const Header: React.FC<HeaderProps> = ({
             className="whitespace-nowrap shrink-0 transition-colors hover:text-white cursor-pointer"
           >
             Archetypes
+          </button>
+          <button
+            onClick={onGoTalkToUs}
+            className={`whitespace-nowrap shrink-0 transition-colors cursor-pointer ${
+              currentStep === 'talk-to-us' ? 'text-amber-400 font-semibold' : 'hover:text-white'
+            }`}
+          >
+            Talk to Us
           </button>
           <button
             onClick={onOpenAbout}

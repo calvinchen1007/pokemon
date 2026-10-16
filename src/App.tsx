@@ -5,6 +5,7 @@ import { HomeScreen } from './components/HomeScreen';
 import { QuizScreen } from './components/QuizScreen';
 import { CalculatingScreen } from './components/CalculatingScreen';
 import { ResultScreen } from './components/ResultScreen';
+import { TalkToUsScreen } from './components/TalkToUsScreen';
 import { RosterGalleryModal } from './components/RosterGalleryModal';
 import { AboutModal } from './components/AboutModal';
 import { QUIZ_QUESTIONS } from './data/quizData';
@@ -20,7 +21,7 @@ import { fetchLivePokemonData } from './services/pokeApi';
 
 export default function App() {
   const [currentStep, setCurrentStep] = useState<
-    'home' | 'quiz' | 'calculating' | 'result'
+    'home' | 'quiz' | 'calculating' | 'result' | 'talk-to-us'
   >('home');
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState<
@@ -184,6 +185,7 @@ export default function App() {
         onStartQuiz={handleStartQuiz}
         onGoHome={() => setCurrentStep('home')}
         onOpenArchetypes={() => setIsArchetypesModalOpen(true)}
+        onGoTalkToUs={() => setCurrentStep('talk-to-us')}
         onOpenAbout={() => setIsAboutModalOpen(true)}
       />
 
@@ -193,6 +195,7 @@ export default function App() {
           <HomeScreen
             onStartQuiz={handleStartQuiz}
             onExploreArchetypes={() => setIsArchetypesModalOpen(true)}
+            onGoTalkToUs={() => setCurrentStep('talk-to-us')}
           />
         )}
 
@@ -209,6 +212,13 @@ export default function App() {
           <CalculatingScreen onComplete={handleCalculationComplete} />
         )}
 
+        {currentStep === 'talk-to-us' && (
+          <TalkToUsScreen
+            onStartQuiz={handleStartQuiz}
+            onExploreArchetypes={() => setIsArchetypesModalOpen(true)}
+          />
+        )}
+
         {currentStep === 'result' && scoreResult && (
           <ResultScreen
             scoreResult={scoreResult}
@@ -217,6 +227,7 @@ export default function App() {
             onRetryApi={() => loadPokeApiData(scoreResult.archetype.pokeApiName)}
             onRetakeQuiz={handleStartQuiz}
             onOpenArchetypes={() => setIsArchetypesModalOpen(true)}
+            onGoTalkToUs={() => setCurrentStep('talk-to-us')}
             onSelectPokemonById={(id) => {
               const target = getArchetypeById(id);
               handleSelectArchetypeFromModal(target);

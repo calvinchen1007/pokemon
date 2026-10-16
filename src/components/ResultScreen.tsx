@@ -8,6 +8,7 @@ import {
   Check,
   Copy,
   ExternalLink,
+  MessageSquare,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { toPng } from 'html-to-image';
@@ -25,6 +26,7 @@ interface ResultScreenProps {
   onRetryApi: () => void;
   onRetakeQuiz: () => void;
   onOpenArchetypes: () => void;
+  onGoTalkToUs?: () => void;
   onSelectPokemonById: (id: string) => void;
 }
 
@@ -35,6 +37,7 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({
   onRetryApi,
   onRetakeQuiz,
   onOpenArchetypes,
+  onGoTalkToUs,
   onSelectPokemonById,
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -204,6 +207,16 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({
               <Copy className="w-3.5 h-3.5" />
               <span>Copy Link</span>
             </button>
+
+            {onGoTalkToUs && (
+              <button
+                onClick={onGoTalkToUs}
+                className="flex items-center gap-1 text-zinc-300 hover:text-white transition-colors py-2 px-3 rounded-lg hover:bg-white/5 cursor-pointer"
+              >
+                <MessageSquare className="w-3.5 h-3.5 text-amber-400" />
+                <span>Talk to Us</span>
+              </button>
+            )}
 
             <button
               onClick={onOpenArchetypes}
