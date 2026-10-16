@@ -3,8 +3,8 @@
 @layer base {
   body {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: #0c0e12;
-    color: #f1f3f7;
+    background-color: #ffffff;
+    color: #0f172a;
     overflow-x: hidden;
   }
 }
@@ -20,7 +20,7 @@
 
 /* Subtle archival exhibition grain texture */
 .bg-grain {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
@@ -30,19 +30,19 @@
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0f1117;
+  background: #f8fafc;
 }
 ::-webkit-scrollbar-thumb {
-  background: #272a34;
+  background: #cbd5e1;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3b3f4e;
+  background: #94a3b8;
 }
 
 /* Taiwan Design Expo stamp effect */
 .stamp-border {
-  border: 1.5px dashed rgba(255, 255, 255, 0.2);
+  border: 1.5px dashed rgba(0, 0, 0, 0.18);
 }
 
 /* Smooth transitions */

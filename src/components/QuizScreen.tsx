@@ -37,7 +37,7 @@ interface QuizScreenProps {
 const renderOptionIcon = (iconName: string, isSelected: boolean) => {
   const iconProps = {
     className: `w-5 h-5 transition-colors ${
-      isSelected ? 'text-amber-400' : 'text-zinc-400 group-hover:text-amber-400'
+      isSelected ? 'text-amber-600' : 'text-zinc-500 group-hover:text-amber-600'
     }`,
   };
 
@@ -123,26 +123,26 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
             <button
               onClick={onPreviousQuestion}
               disabled={isTransitioning}
-              className="flex items-center gap-1.5 text-xs sm:text-sm text-zinc-400 hover:text-white transition-colors cursor-pointer disabled:opacity-50 py-1 px-2 -ml-2 rounded-lg hover:bg-white/5"
+              className="flex items-center gap-1.5 text-xs sm:text-sm text-zinc-600 hover:text-zinc-950 transition-colors cursor-pointer disabled:opacity-50 py-1.5 px-2.5 -ml-2 rounded-lg hover:bg-zinc-100 font-medium"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Back</span>
             </button>
           ) : (
-            <div className="font-mono-code text-[11px] text-zinc-400 uppercase tracking-wider">
+            <div className="font-mono-code text-[11px] text-zinc-500 uppercase tracking-wider">
               TAIWAN EXPO SPECIMEN MATRIX
             </div>
           )}
 
           <div className="text-right">
-            <span className="font-mono-code text-xs font-semibold text-amber-400">
+            <span className="font-mono-code text-xs font-bold text-amber-600">
               {question.dimensionLabel}
             </span>
           </div>
         </div>
 
         {/* Minimal Progress Bar */}
-        <div className="w-full bg-white/10 h-1 rounded-full overflow-hidden">
+        <div className="w-full bg-zinc-200 h-1.5 rounded-full overflow-hidden">
           <div
             className="bg-amber-400 h-full transition-all duration-300 ease-out"
             style={{ width: `${progressPercent}%` }}
@@ -151,10 +151,10 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
 
         {/* Dimension Kicker */}
         <div className="pt-2">
-          <span className="text-[11px] font-mono-code text-zinc-400 tracking-widest uppercase">
+          <span className="text-[11px] font-mono-code text-zinc-500 tracking-widest uppercase">
             {question.dimension}
           </span>
-          <h2 className="font-display text-2xl sm:text-3xl font-bold text-white mt-1 leading-snug">
+          <h2 className="font-display text-2xl sm:text-3xl font-bold text-zinc-900 mt-1 leading-snug">
             {question.question}
           </h2>
         </div>
@@ -172,8 +172,8 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
               disabled={isTransitioning}
               className={`group relative text-left p-4 sm:p-5 rounded-2xl border transition-all duration-200 cursor-pointer min-h-[104px] flex flex-col justify-between overflow-hidden active:scale-[0.98] ${
                 isSelected
-                  ? 'bg-amber-400/10 border-amber-400 shadow-md shadow-amber-400/10'
-                  : 'bg-[#13161f] border-white/10 hover:border-white/25 hover:bg-[#181b26]'
+                  ? 'bg-amber-50 border-amber-500 shadow-md shadow-amber-500/10'
+                  : 'bg-white border-zinc-200 hover:border-amber-400 hover:bg-amber-50/20 shadow-xs'
               }`}
             >
               {/* Option Choice ID & Icon */}
@@ -182,20 +182,20 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
                   <span
                     className={`inline-flex items-center justify-center w-6 h-6 rounded-md font-mono-code text-xs font-bold transition-colors ${
                       isSelected
-                        ? 'bg-amber-400 text-zinc-950'
-                        : 'bg-white/10 text-zinc-300 group-hover:bg-white/20'
+                        ? 'bg-amber-500 text-white'
+                        : 'bg-zinc-100 text-zinc-700 group-hover:bg-amber-100'
                     }`}
                   >
                     {option.id}
                   </span>
-                  <span className="text-sm sm:text-base font-semibold text-white group-hover:text-amber-300 transition-colors">
+                  <span className="text-sm sm:text-base font-semibold text-zinc-900 group-hover:text-amber-700 transition-colors">
                     {option.label}
                   </span>
                 </div>
 
-                <div className="shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-white/5">
+                <div className="shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-zinc-100">
                   {isSelected ? (
-                    <Check className="w-4 h-4 text-amber-400 animate-in zoom-in-75 duration-200" />
+                    <Check className="w-4 h-4 text-amber-600 animate-in zoom-in-75 duration-200" />
                   ) : (
                     renderOptionIcon(option.iconName, false)
                   )}
@@ -203,8 +203,8 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
               </div>
 
               {/* Gen Z Witty Supporting Line */}
-              <div className="pt-1 border-t border-white/5">
-                <p className="text-xs text-zinc-400 group-hover:text-zinc-300 transition-colors italic">
+              <div className="pt-1.5 border-t border-zinc-100">
+                <p className="text-xs text-zinc-500 group-hover:text-zinc-700 transition-colors italic">
                   “{option.supportingLine}”
                 </p>
               </div>
@@ -214,7 +214,7 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
       </div>
 
       {/* Bottom Hint */}
-      <div className="pt-2 pb-4 text-center font-mono-code text-[11px] text-zinc-400">
+      <div className="pt-2 pb-4 text-center font-mono-code text-[11px] text-zinc-500">
         TAP ANY CARD TO ADVANCE · NO WRONG ANSWERS
       </div>
     </div>

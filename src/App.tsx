@@ -177,7 +177,7 @@ export default function App() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#0c0e12] text-[#f2f4f8] antialiased">
+    <div className="flex flex-col min-h-screen bg-white text-zinc-900 antialiased">
       {/* Top Bar following 3-Zone Contract */}
       <Header
         currentStep={currentStep}

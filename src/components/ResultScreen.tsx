@@ -77,7 +77,7 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({
       const dataUrl = await toPng(cardRef.current, {
         quality: 0.95,
         pixelRatio: 2,
-        backgroundColor: '#11141c',
+        backgroundColor: '#ffffff',
       });
       const link = document.createElement('a');
       link.download = `pokevibe-${scoreResult.archetype.id}-card.png`;
@@ -139,13 +139,13 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({
 
       {/* Screen Lead & Headline */}
       <div className="text-center space-y-2 mb-6">
-        <span className="font-mono-code text-[11px] text-amber-400 tracking-widest uppercase">
+        <span className="font-mono-code text-[11px] text-amber-600 font-bold tracking-widest uppercase">
           RESONANCE MATCH CONFIRMED
         </span>
-        <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+        <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-zinc-900 tracking-tight">
           Your Pokémon Specimen
         </h2>
-        <p className="text-xs sm:text-sm text-zinc-400 max-w-md mx-auto">
+        <p className="text-xs sm:text-sm text-zinc-600 max-w-md mx-auto">
           Generated from your 5 instinctive responses · Complete with live PokéAPI telemetry.
         </p>
       </div>
@@ -179,9 +179,9 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({
           {/* Secondary CTA: Send This to Your Group Chat */}
           <button
             onClick={handleShareToGroupChat}
-            className="w-full min-h-[48px] px-5 bg-[#181b26] hover:bg-[#202534] text-white border border-white/15 font-display text-sm font-bold rounded-xl flex items-center justify-center gap-2 transition-all active:scale-[0.98] cursor-pointer"
+            className="w-full min-h-[48px] px-5 bg-white hover:bg-zinc-50 text-zinc-900 border border-zinc-300 font-display text-sm font-bold rounded-xl flex items-center justify-center gap-2 transition-all active:scale-[0.98] shadow-xs cursor-pointer"
           >
-            <Share2 className="w-4 h-4 text-amber-400" />
+            <Share2 className="w-4 h-4 text-amber-500" />
             <span>Send to Group Chat</span>
           </button>
         </div>
@@ -190,7 +190,7 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({
         <div className="flex flex-wrap items-center justify-between gap-3 pt-2 text-xs">
           <button
             onClick={onRetakeQuiz}
-            className="flex items-center gap-1.5 text-zinc-400 hover:text-white transition-colors py-2 px-3 rounded-lg hover:bg-white/5 cursor-pointer font-medium"
+            className="flex items-center gap-1.5 text-zinc-600 hover:text-zinc-950 transition-colors py-2 px-3 rounded-lg hover:bg-zinc-100 cursor-pointer font-medium"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Retake Quiz</span>
@@ -199,7 +199,7 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({
           <div className="flex items-center gap-2">
             <button
               onClick={handleCopyLinkOnly}
-              className="flex items-center gap-1 text-zinc-400 hover:text-zinc-200 transition-colors py-2 px-3 rounded-lg hover:bg-white/5 cursor-pointer"
+              className="flex items-center gap-1 text-zinc-600 hover:text-zinc-950 transition-colors py-2 px-3 rounded-lg hover:bg-zinc-100 cursor-pointer font-medium"
             >
               <Copy className="w-3.5 h-3.5" />
               <span>Copy Link</span>
@@ -207,7 +207,7 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({
 
             <button
               onClick={onOpenArchetypes}
-              className="flex items-center gap-1 text-amber-400 hover:text-amber-300 transition-colors py-2 px-3 rounded-lg hover:bg-white/5 cursor-pointer font-semibold"
+              className="flex items-center gap-1 text-amber-600 hover:text-amber-700 transition-colors py-2 px-3 rounded-lg hover:bg-amber-50 cursor-pointer font-bold"
             >
               <Layers className="w-3.5 h-3.5" />
               <span>All 10 Archetypes</span>

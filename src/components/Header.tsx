@@ -16,28 +16,28 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenAbout,
 }) => {
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-white/10 bg-[#0c0e12]/85 backdrop-blur-md">
+    <header className="sticky top-0 z-40 w-full border-b border-zinc-200 bg-white/90 backdrop-blur-md">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-8 px-4 sm:px-6">
         {/* Zone 1: Brand title, one line */}
         <button
           onClick={onGoHome}
           className="group flex items-center gap-2 text-left whitespace-nowrap shrink-0 transition-opacity hover:opacity-90 cursor-pointer"
         >
-          <span className="font-display text-lg font-bold tracking-tight text-white flex items-center gap-1.5">
+          <span className="font-display text-lg font-bold tracking-tight text-zinc-900 flex items-center gap-1.5">
             <span className="inline-block w-2.5 h-2.5 rounded-full bg-amber-400"></span>
             PokéVibe
           </span>
-          <span className="hidden sm:inline-block font-mono-code text-[11px] text-zinc-400 tracking-wider">
+          <span className="hidden sm:inline-block font-mono-code text-[11px] text-zinc-500 tracking-wider">
             / EXPO 2026
           </span>
         </button>
 
         {/* Zone 2: Nav links, 1-2 word labels, single-line */}
-        <nav className="flex items-center gap-5 sm:gap-7 text-xs sm:text-sm font-medium text-zinc-400">
+        <nav className="flex items-center gap-5 sm:gap-7 text-xs sm:text-sm font-medium text-zinc-600">
           <button
             onClick={onGoHome}
             className={`whitespace-nowrap shrink-0 transition-colors cursor-pointer ${
-              currentStep === 'home' ? 'text-amber-400 font-semibold' : 'hover:text-white'
+              currentStep === 'home' ? 'text-amber-600 font-bold' : 'hover:text-zinc-950'
             }`}
           >
             Home
@@ -46,21 +46,21 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={onStartQuiz}
             className={`whitespace-nowrap shrink-0 transition-colors cursor-pointer ${
               currentStep === 'quiz' || currentStep === 'calculating'
-                ? 'text-amber-400 font-semibold'
-                : 'hover:text-white'
+                ? 'text-amber-600 font-bold'
+                : 'hover:text-zinc-950'
             }`}
           >
             Quiz
           </button>
           <button
             onClick={onOpenArchetypes}
-            className="whitespace-nowrap shrink-0 transition-colors hover:text-white cursor-pointer"
+            className="whitespace-nowrap shrink-0 transition-colors hover:text-zinc-950 cursor-pointer"
           >
             Archetypes
           </button>
           <button
             onClick={onOpenAbout}
-            className="whitespace-nowrap shrink-0 transition-colors hover:text-white cursor-pointer hidden xs:inline-block"
+            className="whitespace-nowrap shrink-0 transition-colors hover:text-zinc-950 cursor-pointer hidden xs:inline-block"
           >
             About
           </button>

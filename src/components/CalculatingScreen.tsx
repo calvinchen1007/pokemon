@@ -41,28 +41,28 @@ export const CalculatingScreen: React.FC<CalculatingScreenProps> = ({
       {/* Geometric Pokéball / Exhibition Resonance Graphic */}
       <div className="relative w-28 h-28 mb-8 flex items-center justify-center">
         {/* Pulsing glow ring */}
-        <div className="absolute inset-0 rounded-full border-2 border-amber-400/30 animate-ping opacity-25" />
-        <div className="absolute inset-2 rounded-full border border-dashed border-white/30 animate-spin [animation-duration:8s]" />
+        <div className="absolute inset-0 rounded-full border-2 border-amber-400/40 animate-ping opacity-25" />
+        <div className="absolute inset-2 rounded-full border border-dashed border-zinc-300 animate-spin [animation-duration:8s]" />
         
         {/* Center Pokéball element */}
-        <div className="relative w-20 h-20 rounded-full border-2 border-white/60 bg-[#141722] flex flex-col overflow-hidden shadow-xl shadow-amber-400/10">
-          <div className="h-1/2 w-full bg-gradient-to-b from-red-500 to-red-600 border-b-2 border-zinc-950" />
+        <div className="relative w-20 h-20 rounded-full border-2 border-zinc-800 bg-white flex flex-col overflow-hidden shadow-xl shadow-amber-400/15">
+          <div className="h-1/2 w-full bg-gradient-to-b from-red-500 to-red-600 border-b-2 border-zinc-900" />
           <div className="h-1/2 w-full bg-zinc-100" />
           {/* Center button */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white border-2 border-zinc-950 flex items-center justify-center shadow-md">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white border-2 border-zinc-900 flex items-center justify-center shadow-md">
             <div className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse" />
           </div>
         </div>
       </div>
 
       <div className="space-y-3">
-        <p className="font-mono-code text-xs text-amber-400 uppercase tracking-widest">
+        <p className="font-mono-code text-xs text-amber-600 font-bold uppercase tracking-widest">
           CALCULATING ARCHETYPE MATRIX
         </p>
-        <h2 className="font-display text-2xl font-bold text-white">
+        <h2 className="font-display text-2xl font-bold text-zinc-900">
           {STEPS[currentStepIndex]}
         </h2>
-        <p className="text-xs text-zinc-400 font-mono-code">
+        <p className="text-xs text-zinc-500 font-mono-code">
           TAIWAN EXPO RESONANCE ALGORITHM // RUNNING
         </p>
       </div>
@@ -74,10 +74,10 @@ export const CalculatingScreen: React.FC<CalculatingScreenProps> = ({
             key={i}
             className={`h-1.5 rounded-full transition-all duration-300 ${
               i === currentStepIndex
-                ? 'w-6 bg-amber-400'
+                ? 'w-6 bg-amber-500'
                 : i < currentStepIndex
-                ? 'w-1.5 bg-amber-400/50'
-                : 'w-1.5 bg-white/20'
+                ? 'w-1.5 bg-amber-300'
+                : 'w-1.5 bg-zinc-200'
             }`}
           />
         ))}
