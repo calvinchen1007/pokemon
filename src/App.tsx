@@ -238,8 +238,8 @@ export default function App() {
         onClose={() => setIsAboutModalOpen(false)}
       />
 
-      {/* Institutional Footer */}
-      <Footer />
+      {/* Institutional Footer (displayed on quiz and result screens; start screen is self-contained no-scroll) */}
+      {currentStep !== 'home' && <Footer />}
     </div>
   );
 }

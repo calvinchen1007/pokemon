@@ -27,9 +27,6 @@ export const Header: React.FC<HeaderProps> = ({
             <span className="inline-block w-2.5 h-2.5 rounded-full bg-amber-400"></span>
             PokéVibe
           </span>
-          <span className="hidden sm:inline-block font-mono-code text-[11px] text-zinc-400 tracking-wider">
-            / EXPO 2026
-          </span>
         </button>
 
         {/* Zone 2: Nav links, 1-2 word labels, single-line */}
