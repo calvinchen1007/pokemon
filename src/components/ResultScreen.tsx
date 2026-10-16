@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Download,
   Share2,
@@ -11,12 +11,14 @@ import {
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { toPng } from 'html-to-image';
+import { DiscussionEmbed, CommentCount } from 'disqus-react';
 import {
   PersonalityScoreResult,
   LivePokemonData,
   ApiFetchState,
 } from '../types';
 import { ResultCard } from './ResultCard';
+import { DisqusErrorBoundary } from './DisqusErrorBoundary';
 
 interface ResultScreenProps {
   scoreResult: PersonalityScoreResult;
@@ -127,6 +129,19 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({
     }
   };
 
+  const disqusConfig = useMemo(() => {
+    const url =
+      typeof window !== 'undefined'
+        ? `${window.location.origin}${window.location.pathname}?pokemon=${scoreResult.archetype.id}`
+        : `https://pokevibe.app/?pokemon=${scoreResult.archetype.id}`;
+    return {
+      url,
+      identifier: `pokevibe-${scoreResult.archetype.id}`,
+      title: `PokéVibe: ${scoreResult.archetype.displayName} - ${scoreResult.archetype.tagline}`,
+      language: 'en',
+    };
+  }, [scoreResult.archetype.id, scoreResult.archetype.displayName, scoreResult.archetype.tagline]);
+
   return (
     <div className="min-h-[calc(100vh-3.5rem)] py-8 px-4 sm:px-6 max-w-4xl mx-auto flex flex-col items-center">
       {/* Toast Notification */}
@@ -215,6 +230,27 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({
           </div>
         </div>
       </div>
+
+      {/* Disqus Integration with Safe Error Boundary */}
+      <DisqusErrorBoundary>
+        {/* Disqus Comment Count (Default) */}
+        <div className="w-full max-w-2xl mt-8 mb-2">
+          <CommentCount
+            shortname="smushutest"
+            config={disqusConfig as any}
+          >
+            Comments
+          </CommentCount>
+        </div>
+
+        {/* Disqus Discussion Embed (Default) */}
+        <div className="w-full max-w-2xl min-h-[320px]">
+          <DiscussionEmbed
+            shortname="smushutest"
+            config={disqusConfig}
+          />
+        </div>
+      </DisqusErrorBoundary>
     </div>
   );
 };
