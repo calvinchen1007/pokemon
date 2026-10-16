@@ -8,6 +8,7 @@ import { ResultScreen } from './components/ResultScreen';
 import { RosterGalleryModal } from './components/RosterGalleryModal';
 import { AboutModal } from './components/AboutModal';
 import { CharacteristicsModal } from './components/CharacteristicsModal';
+import { TalkToUsScreen } from './components/TalkToUsScreen';
 import { QUIZ_QUESTIONS } from './data/quizData';
 import { POKEMON_ARCHETYPES } from './data/archetypes';
 import {
@@ -21,7 +22,7 @@ import { fetchLivePokemonData } from './services/pokeApi';
 
 export default function App() {
   const [currentStep, setCurrentStep] = useState<
-    'home' | 'quiz' | 'calculating' | 'result'
+    'home' | 'quiz' | 'calculating' | 'result' | 'talk'
   >('home');
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState<
@@ -49,6 +50,11 @@ export default function App() {
   useEffect(() => {
     try {
       const searchParams = new URLSearchParams(window.location.search);
+      const queryTab = searchParams.get('tab');
+      if (queryTab === 'talk' || queryTab === 'feedback' || window.location.hash.includes('talk')) {
+        setCurrentStep('talk');
+      }
+
       const queryPokemon = searchParams.get('pokemon');
       if (queryPokemon) {
         const found = POKEMON_ARCHETYPES.find(
@@ -188,6 +194,10 @@ export default function App() {
         onOpenArchetypes={() => setIsArchetypesModalOpen(true)}
         onOpenAbout={() => setIsAboutModalOpen(true)}
         onOpenCharacteristics={() => setIsCharacteristicsModalOpen(true)}
+        onOpenTalkToUs={() => {
+          setCurrentStep('talk');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
       />
 
       {/* Main View Router */}
@@ -227,6 +237,16 @@ export default function App() {
             }}
           />
         )}
+
+        {currentStep === 'talk' && (
+          <TalkToUsScreen
+            onBackToHome={() => {
+              setCurrentStep('home');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            onStartQuiz={handleStartQuiz}
+          />
+        )}
       </main>
 
       {/* Roster Gallery Modal */}
@@ -258,7 +278,12 @@ export default function App() {
       />
 
       {/* Institutional Footer */}
-      <Footer />
+      <Footer
+        onOpenTalkToUs={() => {
+          setCurrentStep('talk');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+      />
     </div>
   );
 }

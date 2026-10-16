@@ -1,12 +1,13 @@
 import React from 'react';
 
 interface HeaderProps {
-  currentStep: 'home' | 'quiz' | 'calculating' | 'result';
+  currentStep: 'home' | 'quiz' | 'calculating' | 'result' | 'talk';
   onStartQuiz: () => void;
   onGoHome: () => void;
   onOpenArchetypes: () => void;
   onOpenAbout: () => void;
   onOpenCharacteristics?: () => void;
+  onOpenTalkToUs?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -16,6 +17,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenArchetypes,
   onOpenAbout,
   onOpenCharacteristics,
+  onOpenTalkToUs,
 }) => {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-white/10 bg-[#0c0e12]/85 backdrop-blur-md">
@@ -68,6 +70,18 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               <span>Characteristics</span>
+            </button>
+          )}
+          {onOpenTalkToUs && (
+            <button
+              onClick={onOpenTalkToUs}
+              className={`whitespace-nowrap shrink-0 transition-colors cursor-pointer flex items-center gap-1.5 ${
+                currentStep === 'talk'
+                  ? 'text-amber-400 font-semibold'
+                  : 'hover:text-white'
+              }`}
+            >
+              <span>Talk to Us</span>
             </button>
           )}
           <button
