@@ -1,0 +1,6 @@
+{
+  "name": "PokéVibe - Pokémon Personality Test",
+  "description": "Discover which Pokémon matches your true personality with this Taiwan Design Expo-inspired 5-question personality quiz. Real-time official PokéAPI data and collectible character cards.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
